@@ -102,8 +102,21 @@ jQuery(function ($) {
 
 
   // Search
-  $('.search input').on('keypress', function (evt) {
+
+  var
+    searchSection = $('.search'),
+    searchField = searchSection.find('input'),
+    clearSearchFieldButton = searchSection.find('[data-role=search-clear]'),
+    submitSearchFieldButton = searchSection.find('[data-role=search-submit]');
+
+  searchField.on('change keypress paste focus textInput input', function (evt) {
     var term = $.trim($(this).val());
+
+    if (term) {
+      clearSearchFieldButton.show();
+    } else {
+      clearSearchFieldButton.hide();
+    }
 
     // ENTER KEY
     if (evt.keyCode === 13) {
@@ -116,8 +129,8 @@ jQuery(function ($) {
       }
   });
 
-  $('.search i').on('click', function (evt) {
-    var term = $.trim($('.search input').val());
+  submitSearchFieldButton.on('click', function (evt) {
+    var term = $.trim(searchField.val());
 
     if (term) {
       App.Router.navigate('search/' + term, { trigger: true });
@@ -127,7 +140,11 @@ jQuery(function ($) {
     $('#catalog-select ul li.active').removeClass('active');
   });
 
-
+  clearSearchFieldButton.on('click', function (evt) {
+    searchField.val('');
+    clearSearchFieldButton.hide();
+    searchField.focus();
+  });
 
   // Shortcuts
   document.addEventListener('keydown', function(event){
