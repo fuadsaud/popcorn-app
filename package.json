@@ -15,7 +15,8 @@
     "height": 600,
     "min_width": 962,
     "min_height": 600,
-    "resizable": true
+    "resizable": true,
+    "show": false
   },
   "dependencies": {
     "clivas": "0.1.4",

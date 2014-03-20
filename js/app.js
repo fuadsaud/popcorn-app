@@ -75,6 +75,7 @@ var wipeTmpFolder = function() {
 // Wipe the tmpFolder when closing the app (this frees up disk space)
 win.on('close', function(){
     wipeTmpFolder();
+    windowState.save();
     win.close(true);
 });
 
