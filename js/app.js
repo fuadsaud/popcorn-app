@@ -75,6 +75,7 @@ var wipeTmpFolder = function() {
 // Wipe the tmpFolder when closing the app (this frees up disk space)
 win.on('close', function(){
     wipeTmpFolder();
+    windowState.save();
     win.close(true);
 });
 
@@ -120,9 +121,11 @@ if (!isDebug) {
 win.title = 'Popcorn Time';
 
 
-// Focus the window when the app opens
-win.focus();
-
+// Focus the window when the app finishes loading
+win.on('loaded', function() {
+  win.show();
+  win.focus();
+});
 
 // Cancel all new windows (Middle clicks / New Tab)
 win.on('new-win-policy', function (frame, url, policy) {
